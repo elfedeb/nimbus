@@ -4,14 +4,18 @@
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import ReactDOM from 'react-dom'
+// import { Router, Route } from 'react-router'
+
 import ListPage from './components/ListPage'
 import CreateBookmark from './components/CreateBookmark'
 
 // GraphQL
-import { gql, graphql } from 'react-apollo';
+import { gql, graphql, ApolloProvider } from 'react-apollo';
 
 // Routing
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, browserHistory } from 'react-router-dom';
 
 // <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
@@ -26,27 +30,6 @@ import css from './styles.css';
 // Get the ReactQL logo.  This is a local .svg file, which will be made
 // available as a string relative to [root]/dist/assets/img/
 import logo from './assets/plisk-icon.png';
-
-// ----------------------
-
-// We'll display this <Home> component when we're on the / route
-const Home = () => (
-  <h1>You&apos;re on the home page - click another link above</h1>
-);
-
-// Helper component that will be conditionally shown when the route matches.
-// This gives you an idea how React Router v4 works
-const Page = ({ match }) => (
-  <h1>Changed route: {match.params.name}</h1>
-);
-
-// Specify PropTypes if the `match` object, which is injected to props by
-// the <Route> component
-Page.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.object,
-  }).isRequired,
-};
 
 // Stats pulled from the environment.  This demonstrates how data will
 // change depending where we're running the code (environment vars, etc)

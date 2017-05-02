@@ -24,22 +24,22 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json());
 
 app.post('/links/', function(req, res) {
-    var client = new MetaInspector(req.body.url, {});
+    let client = new MetaInspector(req.body.url, {});
 
     console.log('Getting the links info and saving...')
 
     client.on('fetch', function() {
 
-        var linkData = {
+        let linkData = {
             url: client.url,
             title: client.ogTitle ? sanitizeTitle(client.ogTitle) : sanitizeTitle(client.title),
             host: client.host,
-            image: client.image,
+            imageURL: client.image,
             description: client.ogDescription ? client.ogDescription : client.description,
             pending: false
         };
         res.send(linkData);
-        console.log('This is LinkData:' + linkData + '... Sending info from: ' + client.url);
+        console.log('This is LinkData:' + client.image + '... Sending info from: ' + client.url);
     });
     client.fetch();
 });

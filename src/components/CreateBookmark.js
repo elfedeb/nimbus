@@ -57,11 +57,11 @@ class CreateBookmark extends React.Component {
   }
 
   handleBookmark = async () => {
-    const {url} = this.state
+    const { url } = this.state
     console.log('This is the URL: ' + url )
     // Check if its a URL
     if (!validator.isURL(url)) { return }
-    console.log('start fectching')
+    console.log('Starting to fectch from the server')
     let that = this;
 
     // Go fetch: sends the validated URL to the server and waits for the scraped info
@@ -69,7 +69,7 @@ class CreateBookmark extends React.Component {
     // url: The URL
     // title: The sanitized title
     // host: Hostname of the page (like, markupvalidator.com, without the scheme)
-    // image: Most relevant image, if defined with og:image
+    // imageURL: Most relevant image, if defined with og:image
     // description: description from meta tag
     // ogTitle : opengraph title
     // ogDescription : opengraph description
@@ -89,7 +89,7 @@ class CreateBookmark extends React.Component {
           })
           // If everything is OK save.
           .then(function(linkData) {
-              console.log('Saving on Parse')
+              console.log('Saving on GraphCool')
               const { url, title, host, imageURL, description } = linkData
               that.props.addBookmark({
                 variables: {
@@ -100,7 +100,7 @@ class CreateBookmark extends React.Component {
                   description
                 }
               })    
-              console.log('... Saved link with this title: ' + title + ' and host: ' + host)
+              console.log('... Saved link with this title: ' + title )
               // phew... after all that go ahead an clean the text field
               that.setState({ url: '' })
               that.props.refresh()
