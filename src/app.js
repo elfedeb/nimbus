@@ -6,7 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ReactDOM from 'react-dom'
-// import { Router, Route } from 'react-router'
+// import { Router, Route } from 'react-router'`
 
 import ListPage from './components/ListPage'
 import CreateBookmark from './components/CreateBookmark'
@@ -53,7 +53,7 @@ const Stats = () => {
 export default () => (
   <div>
     <Helmet
-      title="ReactQL application"
+      title="Plist on ReactQL"
       meta={[{
         name: 'description',
         content: 'Plisk on ReactQL',

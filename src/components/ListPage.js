@@ -25,10 +25,10 @@ class ListPage extends React.Component {
 
     return (
       <div className={'w-100 flex justify-center pa6'}>
-        <header class="tc pv4 pv5-ns">
-  <img className="plisk-icon" src={require('../assets/plisk-icon.png')} class="br3 ba b--black-10 h3 w3" alt="Plisk"/>
-  <h1 class="f5 f4-ns fw6 black-70">Plisk</h1>
-  <h2 class="f6 black-70 fw2 ttu tracked">BookSmarting</h2>
+        <header className="tc pv4 pv5-ns">
+  <img className="plisk-icon" src={require('../assets/plisk-icon.png')} className="br3 ba b--black-10 h3 w3" alt="Plisk"/>
+  <h1 className="f5 f4-ns fw6 black-70">Plisk</h1>
+  <h2 className="f6 black-70 fw2 ttu tracked">BookSmarting</h2>
 </header>
         <div className='w-100 flex flex-wrap' style={{maxwidth: 1150}}>
           <CreateBookmark refresh={() => this.props.data.refetch()} />

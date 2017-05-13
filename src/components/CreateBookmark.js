@@ -24,15 +24,14 @@ class CreateBookmark extends React.Component {
     }
   }
 
-  
-
-  render () {
+  render() {
     // Set text as the state of the input
     const url = this.state.url
     // Change the background of the input if the URI is invalid 
-    const style = { input:
-                { backgroundColor: url.length > 0 ? (validator.isURL(url) ? '#fff' : '#f2dede') : null }
-            }
+    const style = {
+      input:
+      { backgroundColor: url.length > 0 ? (validator.isURL(url) ? '#fff' : '#f2dede') : null }
+    }
     return (
       <div className='pa4 flex justify-center bg-white'>
         <div style={{ maxWidth: 400 }} className=''>
@@ -58,7 +57,7 @@ class CreateBookmark extends React.Component {
 
   handleBookmark = async () => {
     const { url } = this.state
-    console.log('This is the URL: ' + url )
+    console.log('This is the URL: ' + url)
     // Check if its a URL
     if (!validator.isURL(url)) { return }
     console.log('Starting to fectch from the server')
@@ -74,41 +73,40 @@ class CreateBookmark extends React.Component {
     // ogTitle : opengraph title
     // ogDescription : opengraph description
 
-      fetch('//localhost:3014/links/', {
-              method: 'post',
-              headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-              body: JSON.stringify({ url: url })
-          })
-          // When the fetch is ready check the response or throw an error
-          .then(function(response) {
-              if (response.status >= 400) {
-                  // throw new Error('Bad response from the server')
-                  console.log('Mr. Server is not happy. Please try again later.')
-              }
-              return response.json()
-          })
-          // If everything is OK save.
-          .then(function(linkData) {
-              console.log('Saving on GraphCool')
-              const { url, title, host, imageURL, description } = linkData
-              that.props.addBookmark({
-                variables: {
-                  url,
-                  title,
-                  host,
-                  imageURL,
-                  description
-                }
-              })    
-              console.log('... Saved link with this title: ' + title )
-              // phew... after all that go ahead an clean the text field
-              that.setState({ url: '' })
-              that.props.refresh()
-              
-          }         
+    fetch('//localhost:3014/links/', {
+      method: 'post',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: url })
+    })
+      // When the fetch is ready check the response or throw an error
+      .then( function(response) {
+        if (response.status >= 400) {
+          // throw new Error('Bad response from the server')
+          console.log('Mr. Server is not happy. Please try again later.')
+        }
+        return response.json()
+      })
+      // If everything is OK save.
+      .then( function(linkData) {
+        console.log('Saving on GraphCool')
+        const { url, title, host, imageURL, description } = linkData
+        that.props.addBookmark({
+          variables: {
+            url,
+            title,
+            host,
+            imageURL,
+            description
+          }
+        })
+        console.log('... Saved link with this title: ' + title)
+        // phew... after all that go ahead an clean the text field
+        that.setState({ url: '' })
+        that.props.refresh()
+
+      }
       )
-  
-}
+  }
 }
 
 const addMutation = gql`
@@ -133,4 +131,3 @@ const addMutation = gql`
 const PageWithMutation = graphql(addMutation, { name: 'addBookmark' })(CreateBookmark)
 
 export default withRouter(PageWithMutation)
-
