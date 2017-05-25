@@ -32,6 +32,9 @@ class CreateBookmark extends React.Component {
       input:
       { backgroundColor: url.length > 0 ? (validator.isURL(url) ? '#fff' : '#f2dede') : null }
     }
+    if (this.props.data.loading) {
+      return (<div>Loading</div>)
+    }
     return (
       <div className='pa4 flex justify-center bg-white'>
         <div style={{ maxWidth: 400 }} className=''>
