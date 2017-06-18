@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter } from 'react-router'
+import { withRouter, Redirect } from 'react-router'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import validator from 'validator'
@@ -130,7 +130,38 @@ const addMutation = gql`
     }
   }
 `
+const userQuery = gql`
+  query userQuery {
+    user {
+      id
+    }
+  }
+`
 
-const PageWithMutation = graphql(addMutation, { name: 'addBookmark' })(CreateBookmark)
+// const PageWithMutation = graphql(addMutation, { name: 'addBookmark' })(CreateBookmark)
 
-export default withRouter(PageWithMutation)
+// export default withRouter(PageWithMutation)
+
+
+
+export default graphql(addMutation, {
+  props({ownProps, mutate}) {
+    return {
+      addMutation({variables}) {
+        return mutate({
+          variables: {...variables},
+          updateQueries: {
+            FeedQuery: (prev, {mutationResult}) => {
+              const newPost = mutationResult.data.addMutation
+              return {
+                allBookmarks: [...mutationResult.allBookmarks, newBookmark]
+              }
+            },
+          },
+        })
+      },
+    }
+  }
+})(
+  graphql(userQuery, { options: {fetchPolicy: 'network-only'}} )(withRouter(CreateBookmark))
+)

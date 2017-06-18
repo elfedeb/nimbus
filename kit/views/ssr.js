@@ -15,14 +15,14 @@ const Html = ({ head, html, scripts, window, css }) => (
       <meta charSet="utf-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta httpEquiv="Content-Language" content="en" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
       {head.meta.toComponent()}
       <link rel="stylesheet" href={css} />
       {head.title.toComponent()}
     </head>
     <body>
       <div
-        id="main"
+        id="main" className="mw8 center"
         dangerouslySetInnerHTML={{ __html: html }} />
       <script
         dangerouslySetInnerHTML={{

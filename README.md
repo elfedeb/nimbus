@@ -1,2 +1,2 @@
 # nimbus
-A POC of ReactQL and Graphcool.
+A POC of ReactQL[https://reactql.org] and Graphcool.

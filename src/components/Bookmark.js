@@ -11,28 +11,32 @@ class Bookmark extends React.Component {
     refresh: React.PropTypes.func,
   }
 
-  render () {
+  render() {
     let imageSrc = this.props.bookmark.imageURL ? this.props.bookmark.imageURL : require('../assets/imgph.png')
 
     return (
-      <article className="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
-        <a href={this.props.bookmark.url}>
-          <div className="tc">
-            <img src={imageSrc} role='presentation' className="br-100 h3 w3 dib" alt="" />
-            <h1 className="f4">{this.props.bookmark.title}</h1>
-            <hr className="mw3 bb bw1 b--black-10" />
-          </div>
-          <p className="lh-copy measure center f6 black-70">
-            {this.props.bookmark.description}
-          </p>
+      <article className="dt w-100 bb b--black-05 pb2 mt2">
+        <div className="dtc w2 w3-ns v-mid">
+          <img src={imageSrc} role='presentation' className="ba b--black-10 db br2 w2 w3-ns h2 h3-ns" alt="" />
+        </div>
+        <a href={this.props.bookmark.url} className="dtc v-mid pl3">
+          <h1 className="f6 f5-ns fw6 lh-title black mv0">{this.props.bookmark.title}</h1>
+          <p className="f6 fw4 mt0 mb0 black-60">{this.props.bookmark.description}</p>
         </a>
-        <span className="f6 link dim br2 ph3 pv2 mb2 dib white bg-dark-red" onClick={this.handleDelete}>Delete</span>
+        <div class="dtc v-mid">
+          <div class="w-100 tr">
+            <button className="f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60" onClick={this.handleDelete}>Delete</button>
+          </div>
+        </div>
       </article>
     )
   }
 
+
+
+
   handleDelete = async () => {
-    await this.props.mutate({variables: {id: this.props.bookmark.id}})
+    await this.props.mutate({ variables: { id: this.props.bookmark.id } })
 
     this.props.refresh()
   }
